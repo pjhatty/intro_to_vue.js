@@ -14,7 +14,6 @@
 
     <div id="app">
       <div class="product">
-
         <div class="product-image">
           <a :href="link">
             <img :src="image">
@@ -32,15 +31,23 @@
             <li v-for="detail in details">{{ detail }}</li>
           </ul>
 
-          <div class="dib" v-for="variant in variants"  :key="variant.variantId">
-            <span :class="variant.variantColor" class="f6 ma2 grow no-underline br-pill ba bw1 ph3 pv2 mb2 dib">{{ variant.variantColor }}</span>
+          <div class="dib mb4 center" v-for="variant in variants"  :key="variant.variantId">
+            <span @click="updateProduct(variant.variantImage)" :class="variant.variantColor" class="f6 ma2 grow no-underline br-pill ba bw1 ph3 pv2 mb2 dib">{{ variant.variantColor }}</span>
           </div>
-
           <br>
 
           <div class="dib" v-for="size in sizes">
               <span class="f7 ma2 grow no-underline br-pill ba bw1 ph3 pv2 mb2 dib">{{ size }}</span>
           </div>
+          <br>
+
+          <button class="ma4" v-on:click="addToCart">Add to Cart</button>
+          <button class="ma4" :disabled="cart <= 0" v-on:click="removeFromCart">Remove</button>
+
+          <div class="cart ma3">
+            <p>Cart ({{ cart }})</p>
+          </div>
+
         </div>
       </div>
     </div>
