@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width">
     <title>IntroToVue</title>
     <link href="index.css" rel="stylesheet" type="text/css" />
+    <link href="tachyons.min.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
 
@@ -26,10 +27,24 @@
           <p v-else-if="inventory < 10 && inventory > 0"> Almost Out! Only {{ inventory }} items left! </p>
           <p v-else> Out of Stock </p>
           <span v-show="onSale"> On Sale!</span>
-        </div>
 
+          <ul>
+            <li v-for="detail in details">{{ detail }}</li>
+          </ul>
+
+          <div class="dib" v-for="variant in variants"  :key="variant.variantId">
+            <span :class="variant.variantColor" class="f6 ma2 grow no-underline br-pill ba bw1 ph3 pv2 mb2 dib">{{ variant.variantColor }}</span>
+          </div>
+
+          <br>
+
+          <div class="dib" v-for="size in sizes">
+              <span class="f7 ma2 grow no-underline br-pill ba bw1 ph3 pv2 mb2 dib">{{ size }}</span>
+          </div>
+        </div>
       </div>
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="main.js"></script>
