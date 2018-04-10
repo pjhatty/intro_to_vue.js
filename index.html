@@ -11,54 +11,9 @@
 
     <div class="nav-bar"></div>
 
-
     <div id="app">
-      <div class="product">
-        <div class="product-image">
-          <a :href="imageLink">
-            <img :src="image">
-          </a>
-        </div>
-
-        <div class="product-info">
-          <h1>{{ title }}</h1>
-          <p v-if="inStock >= 10"> In Stock </p>
-          <p v-else-if="inStock < 10 && inStock > 0"> Almost Out! Only {{ inStock }} items left! </p>
-          <p v-else> Out of Stock </p>
-          <span v-show="onSale">{{ saleTitle }}</span>
-
-          <ul>
-            <li v-for="detail in details">{{ detail }}</li>
-          </ul>
-
-          <div class="dib ma3 color-box br-pill grow" v-for="(variant, index) in variants"
-              :key="variant.variantId"
-              :style="{ backgroundColor: variant.variantColor }"
-              @click="updateProduct(index)">
-          </div>
-          <br>
-
-          <div class="dib" v-for="size in sizes">
-              <span class="f7 ma2 grow no-underline br-pill ba bw1 ph3 pv2 mb2 dib">{{ size }}</span>
-          </div>
-          <br>
-
-          <button class="ma4" v-on:click="addToCart"
-              :disabled="!inStock"
-              :class="{ disabledButton: !inStock }">Add to Cart</button>
-          <button class="ma4"
-              :disabled="cart <= 0"
-              v-on:click="removeFromCart"
-              :class="{ disabledButton: cart <= 0 }">Remove</button>
-
-          <div class="cart ma3">
-            <p>Cart ({{ cart }})</p>
-          </div>
-
-        </div>
-      </div>
+      <product :premium="premium"></product>
     </div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="main.js"></script>
