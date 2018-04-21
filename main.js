@@ -52,14 +52,8 @@ Vue.component('product', {
         <button class="ma4" v-on:click="addToCart"
             :disabled="!inStock"
             :class="{ disabledButton: !inStock }">Add to Cart</button>
-        <button class="ma4"
-            :disabled="cart <= 0"
-            v-on:click="removeFromCart"
-            :class="{ disabledButton: cart <= 0 }">Remove</button>
 
-        <div class="cart ma3">
-          <p>Cart ({{ cart }})</p>
-        </div>
+        <button class="ma4" v-on:click="removeFromCart">Remove</button>
       </div>
     </div>
   `,
@@ -70,7 +64,6 @@ Vue.component('product', {
       selectedVariant: 0,
       onSale: false,
       details: ["75% Cotton", "15% Wool", "10% American Cheese"],
-      cart: 0,
       variants: [
         {
           variantId: 2234,
@@ -91,10 +84,10 @@ Vue.component('product', {
   },
   methods: {
     addToCart() {
-      this.cart += 1
+      this.$emit('add-to-cart', this.variants[this.selectedVariant].variantId, 'add')
     },
     removeFromCart() {
-      this.cart -= 1
+      this.$emit('remove-from-cart', this.variants[this.selectedVariant].variantId, 'remove')
     },
     updateProduct(index) {
       this.selectedVariant = index
@@ -128,6 +121,18 @@ Vue.component('product', {
 var app = new Vue({
   el: '#app',
   data: {
-    premium: true
+    premium: true,
+    cart: []
+  },
+  methods: {
+    updateCart(id, action) {
+      if (action == 'add') {
+        this.cart.push(id)
+      }
+      else {
+        index = this.cart.indexOf(id);
+        this.cart.splice(index, 1)
+      }
+    }
   }
 });
